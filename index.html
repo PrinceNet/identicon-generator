@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Identicon Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style media="screen">
+    body{
+        background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+        height: 100%;
+        margin: 0;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    h1{
+        text-align: center;
+        margin: 2rem;
+        color: hsla(203, 20%, 55%, 1);
+    }
+
+    .avatar{
+        width: fit-content;
+        background-color: black;
+        border: 10px solid #cfd9df;
+        margin: auto;
+    }
+
+    .btn-no-box-shadow, .btn-no-box-shadow:focus {
+    box-shadow: none;
+}
+
+.generate{
+    background: hsla(203, 20%, 55%, 1);
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+
+            <h1>Identicon Generator</h1>
+
+            <div class="col-md-8 offset-md-2">
+                <!-- <div class="card-body"> -->
+                <div class="avatar">
+                    <svg version="1.1"
+                    baseProfile="full"
+                    :width="diameter" :height="diameter"
+                    xmlns="http://www.w3.org/2000/svg" >
+                    <g v-for="r in cells">
+                        <rect v-for="c in cells" :x="(c-1) * width + '%'" :y="(r-1) * width + '%'"
+                        :width="width +'%'" :height="width + '%'" :fill="getFill()" />
+                    </g>
+                </svg>
+                <!-- </div> -->
+            </div>
+
+            <div class="col-md-8 offset-md-2">
+                <button type="button" class="btn col-md-12 generate btn-no-box-shadow">Generate</button>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+        diameter: 300,
+        cells: 5,
+        width: 0,
+        color: '',
+        baseColor: '',
+    },
+    created: function () {
+        this.color = this.getRandomColor();
+        this.baseColor = this.color;
+        this.width = 100 / this.cells;
+    },
+    methods: {
+        getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        },
+        getFill() {
+            return (Math.random() < 0.5) ? this.baseColor : 'white';
+        }
+    }
+});
+</script>
+</body>
+</html>
