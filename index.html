@@ -2,10 +2,12 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Identicon Generator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style media="screen">
     body{
+        background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
         background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
         height: 100%;
         margin: 0;
@@ -33,6 +35,8 @@
 .generate{
     background: hsla(203, 20%, 55%, 1);
     color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
     </style>
@@ -46,7 +50,7 @@
             <div class="col-md-8 offset-md-2">
                 <!-- <div class="card-body"> -->
                 <div class="avatar">
-                    <svg version="1.1"
+                    <svg version="1.1" id="svg"
                     baseProfile="full"
                     :width="diameter" :height="diameter"
                     xmlns="http://www.w3.org/2000/svg" >
@@ -58,9 +62,14 @@
                 <!-- </div> -->
             </div>
 
-            <div class="col-md-8 offset-md-2">
-                <button type="button" class="btn col-md-12 generate btn-no-box-shadow">Generate</button>
+            <div :style="'width:'+ btnWidth + 'px; margin: auto'">
+                <button type="button" class="btn col-md-12 generate btn-no-box-shadow" @click="generate()" >Generate</button>
+                <a href="" id="downloadMe">
+                    <button type="button" class="btn col-md-12 generate btn-no-box-shadow" @click="download()">Download</button>
+                </a>
             </div>
+
+            <canvas id="canvas" :width="diameter" :height="diameter"></canvas>
 
 
         </div>
@@ -73,10 +82,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+
 var app = new Vue({
     el: '#app',
     data: {
-        diameter: 300,
+        diameter: 250,
+        btnWidth: 250 + 20,
         cells: 5,
         width: 0,
         color: '',
@@ -98,6 +109,21 @@ var app = new Vue({
         },
         getFill() {
             return (Math.random() < 0.5) ? this.baseColor : 'white';
+        },
+        generate() {
+            let temp = this.cells;
+            this.cells = 1;
+            this.cells = temp;
+            this.baseColor = this.getRandomColor();
+        },
+        download() {
+            var svg  = document.getElementById('svg'),
+                xml  = new XMLSerializer().serializeToString(svg),
+                data = "data:image/svg+xml;base64," + btoa(xml);
+
+            var link = document.getElementById('downloadMe');
+            link.href = data;
+            link.download = 'test.svg';
         }
     }
 });
