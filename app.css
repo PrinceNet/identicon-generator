@@ -1,0 +1,53 @@
+body {
+    background-image: linear-gradient(to top, hsla(181, 60%, 80%, 1) 0%, hsla(181, 60%, 95%, 1) 100%);
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+h1 {
+    text-align: center;
+    margin: 1rem 0rem 1rem 0rem;
+    color: hsl(181, 60%, 50%);
+    font-weight: 700;
+    text-transform: uppercase;
+    word-spacing: 1rem;
+}
+
+.avatar {
+    width: fit-content;
+    background-color: black;
+    border: 10px solid hsla(181, 60%, 80%, 1);
+    margin: auto;
+}
+
+.btn-no-box-shadow, .btn-no-box-shadow:focus {
+    box-shadow: none;
+}
+
+.generate {
+    background: hsl(181, 60%, 50%);
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.line {
+    text-align: center;
+    color: hsl(181, 60%, 50%);
+    margin-bottom: 1em;
+}
+
+.logo {
+    width: 120px;
+    display: table;
+    margin: 100px auto 10px auto;
+}
+
+.container {
+    margin-bottom: 20px;
+}
