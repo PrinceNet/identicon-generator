@@ -1,51 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Identicon Generator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
-    <link rel="stylesheet" href="app.css">
-    <link rel="shortcut icon" type="image/png" href="robot.png"/>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="shortcut icon" type="image/png" href="robot.png" />
+  </head>
+  <body>
     <div id="app">
-        <div class="container">
+      <div class="container">
+        <img src="robot.png" alt="robot" class="logo" />
+        <h1>Identicon Generator</h1>
+        <p class="line">A random identicon avatar generator using svg</p>
 
-            <img src="robot.png" alt="robot" class="logo">
-            <h1>Identicon Generator</h1>
-            <p class="line">A random identicon avatar generator using svg</p>
+        <div class="col-md-8 offset-md-2">
+          <div class="avatar">
+            <svg
+              version="1.1"
+              id="svg"
+              baseProfile="full"
+              :width="diameter"
+              :height="diameter"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g v-for="r in cells">
+                <rect
+                  v-for="c in cells"
+                  :x="(c-1) * width + '%'"
+                  :y="(r-1) * width + '%'"
+                  :width="width +'%'"
+                  :height="width + '%'"
+                  :fill="getFill()"
+                />
+              </g>
+            </svg>
+          </div>
 
-            <div class="col-md-8 offset-md-2">
-                <div class="avatar">
-                    <svg version="1.1" id="svg"
-                    baseProfile="full"
-                    :width="diameter" :height="diameter"
-                    xmlns="http://www.w3.org/2000/svg" >
-                    <g v-for="r in cells">
-                        <rect v-for="c in cells" :x="(c-1) * width + '%'" :y="(r-1) * width + '%'"
-                        :width="width +'%'" :height="width + '%'" :fill="getFill()" />
-                    </g>
-                </svg>
-            </div>
+          <div :style="'width:'+ btnWidth + 'px; margin: auto'">
+            <button type="button" class="btn col-md-12 generate btn-no-box-shadow" @click="generate()">Generate</button>
+            <a href="" id="downloadMe">
+              <button type="button" class="btn col-md-12 generate btn-no-box-shadow" @click="download()">
+                Download
+              </button>
+            </a>
+          </div>
 
-            <div :style="'width:'+ btnWidth + 'px; margin: auto'">
-                <button type="button" class="btn col-md-12 generate btn-no-box-shadow" @click="generate()" >Generate</button>
-                <a href="" id="downloadMe">
-                    <button type="button" class="btn col-md-12 generate btn-no-box-shadow" @click="download()">Download</button>
-                </a>
-            </div>
-
-            <canvas id="canvas" :width="diameter" :height="diameter" style="display:none"></canvas>
+          <canvas id="canvas" :width="diameter" :height="diameter" style="display: none"></canvas>
         </div>
+      </div>
 
+      <footer>
+        <p>
+          Copyright <span class="copyright">&copy;</span> {{ fullYear }}
+          <a href="https://doronmor.com/" target="_blank">Doron Mor</a>. All rights reserved.
+        </p>
+      </footer>
     </div>
 
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="app.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
